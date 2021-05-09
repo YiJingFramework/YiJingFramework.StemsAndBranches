@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YiJingFramework.Core;
+using YiJingFramework.FiveElements;
 
 namespace YiJingFramework.StemsAndBranches.Tests
 {
@@ -32,6 +34,21 @@ namespace YiJingFramework.StemsAndBranches.Tests
                 if (j == 11)
                     j = 1;
             }
+        }
+
+        [TestMethod()]
+        public void GetAttributesTest()
+        {
+            Assert.AreEqual((FiveElement.Wood, YinYang.Yang), new HeavenlyStem(1).Attributes);
+            Assert.AreEqual((FiveElement.Wood, YinYang.Yin), new HeavenlyStem(2).Attributes);
+            Assert.AreEqual((FiveElement.Fire, YinYang.Yang), new HeavenlyStem(3).Attributes);
+            Assert.AreEqual((FiveElement.Fire, YinYang.Yin), new HeavenlyStem(4).Attributes);
+            Assert.AreEqual((FiveElement.Earth, YinYang.Yang), new HeavenlyStem(5).Attributes);
+            Assert.AreEqual((FiveElement.Earth, YinYang.Yin), new HeavenlyStem(6).Attributes);
+            Assert.AreEqual((FiveElement.Metal, YinYang.Yang), new HeavenlyStem(7).Attributes);
+            Assert.AreEqual((FiveElement.Metal, YinYang.Yin), new HeavenlyStem(8).Attributes);
+            Assert.AreEqual((FiveElement.Water, YinYang.Yang), new HeavenlyStem(9).Attributes);
+            Assert.AreEqual((FiveElement.Water, YinYang.Yin), new HeavenlyStem(10).Attributes);
         }
 
         [TestMethod()]

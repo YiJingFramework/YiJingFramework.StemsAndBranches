@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using YiJingFramework.Core;
+using YiJingFramework.FiveElements;
 
 namespace YiJingFramework.StemsAndBranches
 {
@@ -114,12 +116,22 @@ namespace YiJingFramework.StemsAndBranches
             => new HeavenlyStem(value);
         #endregion
 
+        public (FiveElement, YinYang) Attributes
+        {
+            get
+            {
+                YinYang yinYang = (YinYang)(this.Index % 2);
+                FiveElement element = (FiveElement)((this.Index - 1) / 2);
+                return (element, yinYang);
+            }
+        }
+
         #region comparing
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
+            /// <summary>
+            /// 
+            /// </summary>
+            /// <param name="other"></param>
+            /// <returns></returns>
         public int CompareTo(HeavenlyStem other)
         {
             return this.Index.CompareTo(other.Index);
