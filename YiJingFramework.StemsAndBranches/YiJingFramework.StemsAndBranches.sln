@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31025.194
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YiJingFramework.StemsAndBranches", "YiJingFramework.StemsAndBranches\YiJingFramework.StemsAndBranches.csproj", "{723453BC-705E-49AE-95E7-099E1E23050C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{723453BC-705E-49AE-95E7-099E1E23050C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{723453BC-705E-49AE-95E7-099E1E23050C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{723453BC-705E-49AE-95E7-099E1E23050C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{723453BC-705E-49AE-95E7-099E1E23050C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {38B3A6C3-E6FA-426A-A88B-6F65CAE3BC5F}
+	EndGlobalSection
+EndGlobal
