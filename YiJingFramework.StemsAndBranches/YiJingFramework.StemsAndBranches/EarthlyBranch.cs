@@ -12,9 +12,9 @@ namespace YiJingFramework.StemsAndBranches
     {
         /// <summary>
         /// 地支的序数。
-        /// 如以 <c>0</c> 对应子。
+        /// 如以 <c>1</c> 对应子。
         /// The index of the heavenly stem.
-        /// For example, <c>0</c> represents Zi.
+        /// For example, <c>1</c> represents Zi.
         /// </summary>
         public int Index { get; set; }
 
@@ -24,13 +24,13 @@ namespace YiJingFramework.StemsAndBranches
         /// </summary>
         /// <param name="index">
         /// 地支的序数。
-        /// 如以 <c>0</c> 对应子。
+        /// 如以 <c>1</c> 对应子。
         /// The index of the heavenly stem.
-        /// For example, <c>0</c> represents Zi.
+        /// For example, <c>1</c> represents Zi.
         /// </param>
         public EarthlyBranch(int index)
         {
-            this.Index = (index % 12 + 12) % 12;
+            this.Index = ((index - 1) % 12 + 12) % 12 + 1;
         }
 
         #region converting
@@ -41,18 +41,18 @@ namespace YiJingFramework.StemsAndBranches
         public override string ToString()
         {
             return this.Index switch {
-                0 => "Zi",
-                1 => "Chou",
-                2 => "Yin",
-                3 => "Mao",
-                4 => "Chen",
-                5 => "Si",
-                6 => "Wu",
-                7 => "Wei",
-                8 => "Shen",
-                9 => "You",
-                10 => "Xu",
-                _ => "Hai" // 11 => "Hai"
+                1 => "Zi",
+                2 => "Chou",
+                3 => "Yin",
+                4 => "Mao",
+                5 => "Chen",
+                6 => "Si",
+                7 => "Wu",
+                8 => "Wei",
+                9 => "Shen",
+                10 => "You",
+                11 => "Xu",
+                _ => "Hai" // 12 => "Hai"
             };
         }
 
@@ -85,18 +85,18 @@ namespace YiJingFramework.StemsAndBranches
             return format.ToUpperInvariant() switch {
                 "G" => this.ToString(),
                 "C" => this.Index switch {
-                    0 => "子",
-                    1 => "丑",
-                    2 => "寅",
-                    3 => "卯",
-                    4 => "辰",
-                    5 => "巳",
-                    6 => "午",
-                    7 => "未",
-                    8 => "申",
-                    9 => "酉",
-                    10 => "戌",
-                    _ => "亥" // 11 => "亥"
+                    1 => "子",
+                    2 => "丑",
+                    3 => "寅",
+                    4 => "卯",
+                    5 => "辰",
+                    6 => "巳",
+                    7 => "午",
+                    8 => "未",
+                    9 => "申",
+                    10 => "酉",
+                    11 => "戌",
+                    _ => "亥" // 12 => "亥"
                 },
                 "N" => this.Index.ToString(),
                 _ => throw new FormatException($"The format string \"{format}\" is not supported.")

@@ -12,9 +12,9 @@ namespace YiJingFramework.StemsAndBranches
     {
         /// <summary>
         /// 天干的序数。
-        /// 如以 <c>0</c> 对应甲。
+        /// 如以 <c>1</c> 对应甲。
         /// The index of the heavenly stem.
-        /// For example, <c>0</c> represents Jia.
+        /// For example, <c>1</c> represents Jia.
         /// </summary>
         public int Index { get; set; }
 
@@ -24,13 +24,13 @@ namespace YiJingFramework.StemsAndBranches
         /// </summary>
         /// <param name="index">
         /// 天干的序数。
-        /// 如以 <c>0</c> 对应甲。
+        /// 如以 <c>1</c> 对应甲。
         /// The index of the heavenly stem.
-        /// For example, <c>0</c> represents Jia.
+        /// For example, <c>1</c> represents Jia.
         /// </param>
         public HeavenlyStem(int index)
         {
-            this.Index = (index % 10 + 10) % 10;
+            this.Index = ((index - 1) % 10 + 10) % 10 + 1;
         }
 
         #region converting
@@ -41,16 +41,16 @@ namespace YiJingFramework.StemsAndBranches
         public override string ToString()
         {
             return this.Index switch {
-                0 => "Jia",
-                1 => "Yi",
-                2 => "Bing",
-                3 => "Ding",
-                4 => "Wu",
-                5 => "Ji",
-                6 => "Geng",
-                7 => "Xin",
-                8 => "Ren",
-                _ => "Gui" // 9 => "Gui"
+                1 => "Jia",
+                2 => "Yi",
+                3 => "Bing",
+                4 => "Ding",
+                5 => "Wu",
+                6 => "Ji",
+                7 => "Geng",
+                8 => "Xin",
+                9 => "Ren",
+                _ => "Gui" // 10 => "Gui"
             };
         }
 
@@ -83,16 +83,16 @@ namespace YiJingFramework.StemsAndBranches
             return format.ToUpperInvariant() switch {
                 "G" => this.ToString(),
                 "C" => this.Index switch {
-                    0 => "甲",
-                    1 => "乙",
-                    2 => "丙",
-                    3 => "丁",
-                    4 => "戊",
-                    5 => "己",
-                    6 => "庚",
-                    7 => "辛",
-                    8 => "壬",
-                    _ => "癸" // 9 => "癸"
+                    1 => "甲",
+                    2 => "乙",
+                    3 => "丙",
+                    4 => "丁",
+                    5 => "戊",
+                    6 => "己",
+                    7 => "庚",
+                    8 => "辛",
+                    9 => "壬",
+                    _ => "癸" // 10 => "癸"
                 },
                 "N" => this.Index.ToString(),
                 _ => throw new FormatException($"The format string \"{format}\" is not supported.")
