@@ -36,6 +36,7 @@ namespace YiJingFramework.StemsAndBranches.Tests
             }
         }
 
+        /*
         [TestMethod()]
         public void GetAttributesTest()
         {
@@ -50,6 +51,7 @@ namespace YiJingFramework.StemsAndBranches.Tests
             Assert.AreEqual((FiveElement.Water, YinYang.Yang), new HeavenlyStem(9).Attributes);
             Assert.AreEqual((FiveElement.Water, YinYang.Yin), new HeavenlyStem(10).Attributes);
         }
+        */
 
         [TestMethod()]
         public void ComparingTest()

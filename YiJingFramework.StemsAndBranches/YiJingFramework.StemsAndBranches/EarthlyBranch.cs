@@ -106,9 +106,9 @@ namespace YiJingFramework.StemsAndBranches
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="EarthlyBranch"></param>
-        public static explicit operator int(EarthlyBranch EarthlyBranch)
-            => EarthlyBranch.Index;
+        /// <param name="earthlyBranch"></param>
+        public static explicit operator int(EarthlyBranch earthlyBranch)
+            => earthlyBranch.Index;
 
         /// <summary>
         /// 
