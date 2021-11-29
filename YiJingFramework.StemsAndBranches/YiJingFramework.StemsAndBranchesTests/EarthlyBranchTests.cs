@@ -32,6 +32,25 @@ namespace YiJingFramework.StemsAndBranches.Tests
                 if (j == 13)
                     j = 1;
             }
+
+            var dic = EarthlyBranch.BuildStringBranchTable().ToDictionary(
+                (item) => item.s, (item) => item.branch);
+            var dicG = EarthlyBranch.BuildStringBranchTable("G").ToDictionary(
+                (item) => item.s, (item) => item.branch);
+            var dicC = EarthlyBranch.BuildStringBranchTable("C").ToDictionary(
+                (item) => item.s, (item) => item.branch);
+            var dicN = EarthlyBranch.BuildStringBranchTable("N").ToDictionary(
+                (item) => item.s, (item) => item.branch);
+            for (int i = -1007, j = 1; i < 1000; i++)
+            {
+                Assert.AreEqual(dic[new EarthlyBranch(j).ToString()], (EarthlyBranch)i);
+                Assert.AreEqual(dicG[new EarthlyBranch(j).ToString("G")], (EarthlyBranch)i);
+                Assert.AreEqual(dicC[new EarthlyBranch(j).ToString("C")], (EarthlyBranch)i);
+                Assert.AreEqual(dicN[new EarthlyBranch(j).ToString("N")], (EarthlyBranch)i);
+                j++;
+                if (j == 13)
+                    j = 1;
+            }
         }
 
         [TestMethod()]

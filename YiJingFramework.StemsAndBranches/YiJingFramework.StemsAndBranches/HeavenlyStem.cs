@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq.Expressions;
 // using YiJingFramework.Core;
 // using YiJingFramework.FiveElements;
 
@@ -36,6 +38,34 @@ namespace YiJingFramework.StemsAndBranches
         }
 
         #region converting
+        /// <summary>        
+        /// 按照指定格式构建字符串-天干表。
+        /// Build a string-stem table with the given format.
+        /// </summary>
+        /// <param name="format">
+        /// 要使用的格式。
+        /// The format to be used.
+        /// 参见 <seealso cref="ToString(string?, IFormatProvider?)"/> 。
+        /// See <seealso cref="ToString(string?, IFormatProvider?)"/>.
+        /// </param>
+        /// <returns>
+        /// 结果。
+        /// The result.
+        /// </returns>
+        /// <exception cref="FormatException">
+        /// 给出的格式化字符串不受支持。
+        /// The given format is not supported.
+        /// </exception>
+        public static IEnumerable<(string s, HeavenlyStem stem)> 
+            BuildStringStemTable(string? format = null)
+        {
+            for (int i = 1; i <= 10; i++)
+            {
+                var stem = new HeavenlyStem(i);
+                yield return (stem.ToString(format), stem);
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -62,6 +92,7 @@ namespace YiJingFramework.StemsAndBranches
         /// </summary>
         /// <param name="format">
         /// 要使用的格式。
+        /// The format to be used.
         /// <c>"G"</c> 表示拼音字母； <c>"C"</c> 表示中文； <c>"N"</c> 表示数字。
         /// <c>"G"</c> represents the phonetic alphabets; <c>"C"</c> represents chinese characters; and <c>"N"</c> represents numbers.
         /// </param>

@@ -34,6 +34,25 @@ namespace YiJingFramework.StemsAndBranches.Tests
                 if (j == 11)
                     j = 1;
             }
+
+            var dic = HeavenlyStem.BuildStringStemTable().ToDictionary(
+                (item) => item.s, (item) => item.stem);
+            var dicG = HeavenlyStem.BuildStringStemTable("G").ToDictionary(
+                (item) => item.s, (item) => item.stem);
+            var dicC = HeavenlyStem.BuildStringStemTable("C").ToDictionary(
+                (item) => item.s, (item) => item.stem);
+            var dicN = HeavenlyStem.BuildStringStemTable("N").ToDictionary(
+                (item) => item.s, (item) => item.stem);
+            for (int i = -999, j = 1; i < 1000; i++)
+            {
+                Assert.AreEqual(dic[new HeavenlyStem(j).ToString()], (HeavenlyStem)i);
+                Assert.AreEqual(dicG[new HeavenlyStem(j).ToString("G")], (HeavenlyStem)i);
+                Assert.AreEqual(dicC[new HeavenlyStem(j).ToString("C")], (HeavenlyStem)i);
+                Assert.AreEqual(dicN[new HeavenlyStem(j).ToString("N")], (HeavenlyStem)i);
+                j++;
+                if (j == 11)
+                    j = 1;
+            }
         }
 
         /*

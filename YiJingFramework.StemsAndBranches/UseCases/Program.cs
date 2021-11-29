@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using YiJingFramework.StemsAndBranches;
 
 namespace UseCases
@@ -117,6 +119,24 @@ namespace UseCases
             // 58: 辛酉 (Xin You)
             // 59: 壬戌 (Ren Xu)
             // 60: 癸亥 (Gui Hai)
+            #endregion
+
+            #region to convert from string to stems or branches
+            var stemTableInChinese = HeavenlyStem.BuildStringStemTable("C");
+            var dictionary = stemTableInChinese.ToDictionary(
+                item => item.s, item => item.stem);
+
+            var stemTableInPhoneticAlphabets = HeavenlyStem.BuildStringStemTable("G");
+            foreach (var (s, stem) in stemTableInPhoneticAlphabets)
+                dictionary.Add(s, stem);
+
+            string stringToSearch = "甲";
+            Console.WriteLine($"This is {dictionary[stringToSearch]}!");
+            string stringToSearch2 = "Yi";
+            Console.WriteLine($"这是{dictionary[stringToSearch2]:C}！");
+            Console.WriteLine();
+            // Outputs: This is Jia!
+            // 这是乙！
             #endregion
         }
     }
