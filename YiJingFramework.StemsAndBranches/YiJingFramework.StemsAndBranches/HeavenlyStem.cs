@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq.Expressions;
 // using YiJingFramework.Core;
 // using YiJingFramework.FiveElements;
 
@@ -56,7 +53,7 @@ namespace YiJingFramework.StemsAndBranches
         /// 给出的格式化字符串不受支持。
         /// The given format is not supported.
         /// </exception>
-        public static IEnumerable<(string s, HeavenlyStem stem)> 
+        public static IEnumerable<(string s, HeavenlyStem stem)>
             BuildStringStemTable(string? format = null)
         {
             for (int i = 1; i <= 10; i++)
@@ -72,7 +69,8 @@ namespace YiJingFramework.StemsAndBranches
         /// <returns></returns>
         public override string ToString()
         {
-            return this.Index switch {
+            return this.Index switch
+            {
                 1 => "Jia",
                 2 => "Yi",
                 3 => "Bing",
@@ -113,9 +111,11 @@ namespace YiJingFramework.StemsAndBranches
             if (string.IsNullOrEmpty(format))
                 format = "G";
 
-            return format.ToUpperInvariant() switch {
+            return format.ToUpperInvariant() switch
+            {
                 "G" => this.ToString(),
-                "C" => this.Index switch {
+                "C" => this.Index switch
+                {
                     1 => "甲",
                     2 => "乙",
                     3 => "丙",

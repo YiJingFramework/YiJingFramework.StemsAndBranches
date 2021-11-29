@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 
 namespace YiJingFramework.StemsAndBranches
 {
@@ -69,7 +67,8 @@ namespace YiJingFramework.StemsAndBranches
         /// <returns></returns>
         public override string ToString()
         {
-            return this.Index switch {
+            return this.Index switch
+            {
                 1 => "Zi",
                 2 => "Chou",
                 3 => "Yin",
@@ -112,9 +111,11 @@ namespace YiJingFramework.StemsAndBranches
             if (string.IsNullOrEmpty(format))
                 format = "G";
 
-            return format.ToUpperInvariant() switch {
+            return format.ToUpperInvariant() switch
+            {
                 "G" => this.ToString(),
-                "C" => this.Index switch {
+                "C" => this.Index switch
+                {
                     1 => "子",
                     2 => "丑",
                     3 => "寅",
