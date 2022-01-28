@@ -37,13 +37,14 @@ namespace ExtensionsOfStemsAndBranches
         public static TwelveGrowthPhase GetTwelveGrowthPhase(
             this FiveElement fiveElement, EarthlyBranch branch)
         {
-            return (TwelveGrowthPhase)((branch.Index - zhangShengOfElements[fiveElement].Index + 12) % 12);
+            var difference = branch.Index - zhangShengOfElements[fiveElement].Index;
+            return (TwelveGrowthPhase)((difference + 12) % 12);
         }
 
         public static EarthlyBranch GetBranchByTwelveGrowthPhase(
             this FiveElement me, TwelveGrowthPhase relationship)
         {
-            return new EarthlyBranch(zhangShengOfElements[me].Index + (int)relationship);
+            return zhangShengOfElements[me].Next((int)relationship);
         }
     }
 }
