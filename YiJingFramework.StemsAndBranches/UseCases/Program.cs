@@ -4,9 +4,9 @@ using YiJingFramework.StemsAndBranches;
 
 namespace UseCases
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             #region to get or convert stems and branches
             HeavenlyStem jia = new HeavenlyStem(1);

@@ -1,13 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ExtensionsOfStemsAndBranches;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using YiJingFramework.StemsAndBranches;
-using YiJingFramework.FiveElements;
 using YiJingFramework.Core;
+using YiJingFramework.FiveElements;
+using YiJingFramework.StemsAndBranches;
 
 namespace ExtensionsOfStemsAndBranches.Tests
 {
