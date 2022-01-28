@@ -50,11 +50,26 @@ namespace UseCases
             // ...
 
             Console.WriteLine("Sexagenary Cycle:");
-            for (int i = 1; i <= 60; i++)
+            for (int i = 1; i <= 30; i++) // <- print half of the cycle, use '<= 60' to print all the cycle
             {
                 HeavenlyStem stem = new HeavenlyStem(i);
                 EarthlyBranch branch = new EarthlyBranch(i);
                 Console.WriteLine($"{i:00}: {stem.ToString("C")}{branch:C} ({stem.ToString()} {branch})");
+            }
+            // print another half of the cycle in the other way
+            var endingStem = new HeavenlyStem(1);
+            var endingBranch = new EarthlyBranch(1);
+            int index = 31;
+            var currentStem = new HeavenlyStem(index);
+            var currentBranch = new EarthlyBranch(index);
+            for (; currentStem != endingStem || currentBranch != endingBranch; )
+            {
+                Console.WriteLine($"{index:00}: " +
+                    $"{currentStem:C}{currentBranch:C} " +
+                    $"({currentStem} {currentBranch})");
+                currentStem = currentStem.Next();
+                currentBranch = currentBranch.Next();
+                index++;
             }
             Console.WriteLine();
             // Outputs: Sexagenary Cycle:
