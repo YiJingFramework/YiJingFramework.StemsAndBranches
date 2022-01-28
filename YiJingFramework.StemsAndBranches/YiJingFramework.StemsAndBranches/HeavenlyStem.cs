@@ -34,6 +34,23 @@ namespace YiJingFramework.StemsAndBranches
             this.Index = ((index - 1) % 10 + 10) % 10 + 1;
         }
 
+        /// <summary>
+        /// 获取后续的第 <paramref name="n"/> 个天干。
+        /// Get the <paramref name="n"/>th stem after.
+        /// </summary>
+        /// <param name="n">
+        /// 数字 <paramref name="n"/> 。若小于零则返回先前的天干。
+        /// The number <paramref name="n"/>. If it's smaller than zero, it will return a previous stem.
+        /// </param>
+        /// <returns>
+        /// 指定天干。
+        /// The stem.
+        /// </returns>
+        public HeavenlyStem Next(int n = 1)
+        {
+            return new HeavenlyStem(this.Index + n);
+        }
+
         #region converting
         /// <summary>        
         /// 按照指定格式构建字符串-天干表。

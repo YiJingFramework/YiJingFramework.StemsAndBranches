@@ -47,6 +47,9 @@ namespace YiJingFramework.StemsAndBranches.Tests
                 if (j == 13)
                     j = 1;
             }
+
+            Assert.AreEqual(new EarthlyBranch(1).Next(12 + 11), new EarthlyBranch(12));
+            Assert.AreEqual(new EarthlyBranch(1).Next(-2), new EarthlyBranch(11));
         }
 
         [TestMethod()]

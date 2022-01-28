@@ -32,6 +32,23 @@ namespace YiJingFramework.StemsAndBranches
             this.Index = ((index - 1) % 12 + 12) % 12 + 1;
         }
 
+        /// <summary>
+        /// 获取后续的第 <paramref name="n"/> 个地支。
+        /// Get the <paramref name="n"/>th branch after.
+        /// </summary>
+        /// <param name="n">
+        /// 数字 <paramref name="n"/> 。若小于零则返回先前的地支。
+        /// The number <paramref name="n"/>. If it's smaller than zero, it will return a previous branch.
+        /// </param>
+        /// <returns>
+        /// 指定地支。
+        /// The branch.
+        /// </returns>
+        public EarthlyBranch Next(int n = 1)
+        {
+            return new EarthlyBranch(this.Index + n);
+        }
+
         #region converting
         /// <summary>        
         /// 按照指定格式构建字符串-地支表。

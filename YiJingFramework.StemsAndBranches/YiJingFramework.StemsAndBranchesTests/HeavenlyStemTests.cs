@@ -47,6 +47,9 @@ namespace YiJingFramework.StemsAndBranches.Tests
                 if (j == 11)
                     j = 1;
             }
+
+            Assert.AreEqual(new HeavenlyStem(1).Next(10 + 3), new HeavenlyStem(4));
+            Assert.AreEqual(new HeavenlyStem(1).Next(-2), new HeavenlyStem(9));
         }
 
         /*
