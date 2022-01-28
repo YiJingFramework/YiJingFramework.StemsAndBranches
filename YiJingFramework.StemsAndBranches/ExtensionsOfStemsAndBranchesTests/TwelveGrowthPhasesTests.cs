@@ -10,14 +10,25 @@ namespace ExtensionsOfStemsAndBranches.Tests
         [TestMethod()]
         public void Usage()
         {
-            var branchUpper = new EarthlyBranch(2);
-            var branchLower = new EarthlyBranch(5);
-
-            var phase = branchUpper.GetFiveElement().GetTwelveGrowthPhase(branchLower);
-            // Here the GetFiveElement() comes from Attributes extension.
-
-            var str = $"{branchUpper} comes to {branchLower} which is its {phase}";
-            Assert.AreEqual("Chou comes to Chen which is its Mu", str);
+            {
+                var branchUpper = new EarthlyBranch(2);
+                var branchLower = new EarthlyBranch(5);
+                var phase = branchUpper.GetFiveElement().GetTwelveGrowthPhase(branchLower);
+                // Here the GetFiveElement() comes from Attributes extension.
+                var str = $"{branchUpper} comes to {branchLower} which is its {phase}";
+                Assert.AreEqual("Chou comes to Chen which is its Mu", str);
+            }
+            {
+                var element = FiveElement.Fire;
+                var branch1 = element.GetBranchByTwelveGrowthPhase(
+                    TwelveGrowthPhases.TwelveGrowthPhase.LinGuan);
+                var branch2 = element.GetBranchByTwelveGrowthPhase(
+                    TwelveGrowthPhases.TwelveGrowthPhase.DiWang);
+                Assert.AreEqual(branch1.GetFiveElement(), element);
+                Assert.AreEqual(branch2.GetFiveElement(), element);
+                // Except Earth, LinGuan and DiWang of a element will be
+                // the two branches with the attribute of this element.
+            }
         }
 
         [TestMethod()]
