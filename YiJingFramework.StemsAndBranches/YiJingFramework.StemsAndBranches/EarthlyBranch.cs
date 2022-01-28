@@ -15,7 +15,7 @@ namespace YiJingFramework.StemsAndBranches
         /// The index of the heavenly stem.
         /// For example, <c>1</c> represents Zi.
         /// </summary>
-        public int Index { get; set; }
+        public int Index { get; }
 
         /// <summary>
         /// 初始化一个实例。
