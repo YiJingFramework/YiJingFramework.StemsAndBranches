@@ -35,12 +35,16 @@ namespace YiJingFramework.StemsAndBranches
         }
 
         /// <summary>
-        /// 获取后续的第 <paramref name="n"/> 个天干。
-        /// Get the <paramref name="n"/>th stem after.
+        /// 获取此天干的前第 <paramref name="n"/> 个天干。
+        /// Get the <paramref name="n"/>th stem in front of this instance.
+        /// 前，如甲前为乙。
+        /// Jia is thought to be in front of Yi for example.
         /// </summary>
         /// <param name="n">
-        /// 数字 <paramref name="n"/> 。若小于零则返回先前的天干。
-        /// The number <paramref name="n"/>. If it's smaller than zero, it will return a previous stem.
+        /// 数字 <paramref name="n"/> 。
+        /// The number <paramref name="n"/>.
+        /// 可以小于零以表示另一个方向。
+        /// It could be smaller than zero which means the other direction.
         /// </param>
         /// <returns>
         /// 指定天干。
