@@ -10,10 +10,10 @@ namespace UseCases
         {
             #region to get or convert stems and branches
             HeavenlyStem jia = new HeavenlyStem(1);
-            HeavenlyStem yi = jia.Next(); // the first stem after Jia
+            HeavenlyStem yi = jia.Next(); // the first stem in front of Jia
 
             EarthlyBranch you = (EarthlyBranch)(-2);
-            EarthlyBranch shen = you.Next(-25); // the 25th branch before You
+            EarthlyBranch shen = you.Next(-25); // the 25th branch behind You
             // It will be the same if you use '-1' or '11',
             // since the branches is a cycle with 12 elements.
 
