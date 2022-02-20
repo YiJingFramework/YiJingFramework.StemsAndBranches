@@ -4,7 +4,7 @@ using YiJingFramework.StemsAndBranches;
 
 namespace ExtensionsOfStemsAndBranches
 {
-    public static class Attributes
+    public static class AttributesExtension
     {
         public static FiveElement GetFiveElement(this HeavenlyStem stem)
         {

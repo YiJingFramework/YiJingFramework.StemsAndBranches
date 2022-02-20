@@ -3,7 +3,7 @@ using YiJingFramework.StemsAndBranches;
 
 namespace ExtensionsOfStemsAndBranches
 {
-    public static class TwelveGrowthPhases
+    public static class TwelveGrowthPhasesExtension
     {
         public enum TwelveGrowthPhase
         {
