@@ -5,7 +5,7 @@ using YiJingFramework.StemsAndBranches;
 namespace ExtensionsOfStemsAndBranches.Tests
 {
     [TestClass()]
-    public class TwelveGrowthPhasesExtensionTests
+    public class TwelveGrowthPhasesExtensionsTests
     {
         [TestMethod()]
         public void Usage()
@@ -21,9 +21,9 @@ namespace ExtensionsOfStemsAndBranches.Tests
             {
                 var element = FiveElement.Fire;
                 var branch1 = element.GetBranchByTwelveGrowthPhase(
-                    TwelveGrowthPhasesExtension.TwelveGrowthPhase.LinGuan);
+                    TwelveGrowthPhasesExtensions.TwelveGrowthPhase.LinGuan);
                 var branch2 = element.GetBranchByTwelveGrowthPhase(
-                    TwelveGrowthPhasesExtension.TwelveGrowthPhase.DiWang);
+                    TwelveGrowthPhasesExtensions.TwelveGrowthPhase.DiWang);
                 Assert.AreEqual(branch1.GetFiveElement(), element);
                 Assert.AreEqual(branch2.GetFiveElement(), element);
                 // Except Earth, LinGuan and DiWang of a element will be
@@ -38,7 +38,7 @@ namespace ExtensionsOfStemsAndBranches.Tests
             var currentBranch = new EarthlyBranch(12); // 亥
             for (int i = 0; i < 12; i++)
             {
-                Assert.AreEqual((TwelveGrowthPhasesExtension.TwelveGrowthPhase)i,
+                Assert.AreEqual((TwelveGrowthPhasesExtensions.TwelveGrowthPhase)i,
                     element.GetTwelveGrowthPhase(currentBranch));
                 currentBranch = currentBranch.Next();
             }
@@ -47,7 +47,7 @@ namespace ExtensionsOfStemsAndBranches.Tests
             currentBranch = new EarthlyBranch(3); // 寅
             for (int i = 0; i < 12; i++)
             {
-                Assert.AreEqual((TwelveGrowthPhasesExtension.TwelveGrowthPhase)i,
+                Assert.AreEqual((TwelveGrowthPhasesExtensions.TwelveGrowthPhase)i,
                     element.GetTwelveGrowthPhase(currentBranch));
                 currentBranch = currentBranch.Next();
             }
@@ -56,7 +56,7 @@ namespace ExtensionsOfStemsAndBranches.Tests
             currentBranch = new EarthlyBranch(6); // 巳
             for (int i = 0; i < 12; i++)
             {
-                Assert.AreEqual((TwelveGrowthPhasesExtension.TwelveGrowthPhase)i,
+                Assert.AreEqual((TwelveGrowthPhasesExtensions.TwelveGrowthPhase)i,
                     element.GetTwelveGrowthPhase(currentBranch));
                 currentBranch = currentBranch.Next();
             }
@@ -66,9 +66,9 @@ namespace ExtensionsOfStemsAndBranches.Tests
             currentBranch = new EarthlyBranch(9); // 申
             for (int i = 0; i < 12; i++)
             {
-                Assert.AreEqual((TwelveGrowthPhasesExtension.TwelveGrowthPhase)i,
+                Assert.AreEqual((TwelveGrowthPhasesExtensions.TwelveGrowthPhase)i,
                     element.GetTwelveGrowthPhase(currentBranch));
-                Assert.AreEqual((TwelveGrowthPhasesExtension.TwelveGrowthPhase)i,
+                Assert.AreEqual((TwelveGrowthPhasesExtensions.TwelveGrowthPhase)i,
                     element2.GetTwelveGrowthPhase(currentBranch));
                 currentBranch = currentBranch.Next();
             }
@@ -82,7 +82,7 @@ namespace ExtensionsOfStemsAndBranches.Tests
             for (int i = 0; i < 12; i++)
             {
                 Assert.AreEqual(currentBranch,
-                    element.GetBranchByTwelveGrowthPhase((TwelveGrowthPhasesExtension.TwelveGrowthPhase)i));
+                    element.GetBranchByTwelveGrowthPhase((TwelveGrowthPhasesExtensions.TwelveGrowthPhase)i));
                 currentBranch = currentBranch.Next();
             }
 
@@ -91,7 +91,7 @@ namespace ExtensionsOfStemsAndBranches.Tests
             for (int i = 0; i < 12; i++)
             {
                 Assert.AreEqual(currentBranch,
-                    element.GetBranchByTwelveGrowthPhase((TwelveGrowthPhasesExtension.TwelveGrowthPhase)i));
+                    element.GetBranchByTwelveGrowthPhase((TwelveGrowthPhasesExtensions.TwelveGrowthPhase)i));
                 currentBranch = currentBranch.Next();
             }
 
@@ -100,7 +100,7 @@ namespace ExtensionsOfStemsAndBranches.Tests
             for (int i = 0; i < 12; i++)
             {
                 Assert.AreEqual(currentBranch,
-                    element.GetBranchByTwelveGrowthPhase((TwelveGrowthPhasesExtension.TwelveGrowthPhase)i));
+                    element.GetBranchByTwelveGrowthPhase((TwelveGrowthPhasesExtensions.TwelveGrowthPhase)i));
                 currentBranch = currentBranch.Next();
             }
 
@@ -110,9 +110,9 @@ namespace ExtensionsOfStemsAndBranches.Tests
             for (int i = 0; i < 12; i++)
             {
                 Assert.AreEqual(currentBranch,
-                    element.GetBranchByTwelveGrowthPhase((TwelveGrowthPhasesExtension.TwelveGrowthPhase)i));
+                    element.GetBranchByTwelveGrowthPhase((TwelveGrowthPhasesExtensions.TwelveGrowthPhase)i));
                 Assert.AreEqual(currentBranch,
-                    element2.GetBranchByTwelveGrowthPhase((TwelveGrowthPhasesExtension.TwelveGrowthPhase)i));
+                    element2.GetBranchByTwelveGrowthPhase((TwelveGrowthPhasesExtensions.TwelveGrowthPhase)i));
                 currentBranch = currentBranch.Next();
             }
         }

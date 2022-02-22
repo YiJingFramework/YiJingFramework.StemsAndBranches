@@ -7,7 +7,7 @@ using YiJingFramework.StemsAndBranches;
 namespace ExtensionsOfStemsAndBranches.Tests
 {
     [TestClass()]
-    public class AttributesExtensionTests
+    public class AttributesExtensionsTests
     {
         [TestMethod()]
         public void Usage()
