@@ -6,6 +6,23 @@ namespace ExtensionsOfStemsAndBranches.Tests
     [TestClass()]
     public class BranchRelationshipsExtensionsTests
     {
+        [TestMethod()]
+        public void Usage()
+        {
+            var zi = new EarthlyBranch(1);
+            var mao = new EarthlyBranch(4);
+            var wu = new EarthlyBranch(7);
+            var you = new EarthlyBranch(10);
+            var wei = new EarthlyBranch(8);
+            var chou = new EarthlyBranch(2);
+
+            Assert.AreEqual(mao, zi.Xing());
+            Assert.AreEqual(mao, zi.XingBy());
+            Assert.AreEqual(wu, zi.Chong());
+            Assert.AreEqual(you, zi.Po());
+            Assert.AreEqual(wei, zi.Hai());
+            Assert.AreEqual(chou, zi.LiuHe());
+        }
 
         [TestMethod()]
         public void LiuHeTest()
