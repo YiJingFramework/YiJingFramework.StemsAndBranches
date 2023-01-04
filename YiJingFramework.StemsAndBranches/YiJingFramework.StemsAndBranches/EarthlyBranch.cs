@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Numerics;
+using System.Text.Json.Serialization;
+using YiJingFramework.Serialization;
 
 namespace YiJingFramework.StemsAndBranches
 {
@@ -7,7 +11,13 @@ namespace YiJingFramework.StemsAndBranches
     /// 地支。
     /// A heavenly stem.
     /// </summary>
-    public struct EarthlyBranch : IComparable<EarthlyBranch>, IEquatable<EarthlyBranch>, IFormattable
+    [JsonConverter(typeof(JsonConverterOfStringConvertibleForJson<EarthlyBranch>))]
+    public readonly struct EarthlyBranch :
+        IComparable<EarthlyBranch>, IEquatable<EarthlyBranch>, IFormattable,
+        IParsable<EarthlyBranch>, IEqualityOperators<EarthlyBranch, EarthlyBranch, bool>,
+        IStringConvertibleForJson<EarthlyBranch>,
+        IAdditionOperators<EarthlyBranch, int, EarthlyBranch>,
+        ISubtractionOperators<EarthlyBranch, int, EarthlyBranch>
     {
         /// <summary>
         /// 地支的序数。
@@ -53,35 +63,30 @@ namespace YiJingFramework.StemsAndBranches
             return new EarthlyBranch(this.Index + n);
         }
 
-        #region converting
-        /// <summary>        
-        /// 按照指定格式构建字符串-地支表。
-        /// Build a string-branch table with the given format.
+        /// <summary>
+        /// 
         /// </summary>
-        /// <param name="format">
-        /// 要使用的格式。
-        /// The format to be used.
-        /// 参见 <seealso cref="ToString(string?, IFormatProvider?)"/> 。
-        /// See <seealso cref="ToString(string?, IFormatProvider?)"/>.
-        /// </param>
-        /// <returns>
-        /// 结果。
-        /// The result.
-        /// </returns>
-        /// <exception cref="FormatException">
-        /// 给出的格式化字符串不受支持。
-        /// The given format is not supported.
-        /// </exception>
-        public static IEnumerable<(string s, EarthlyBranch branch)>
-            BuildStringBranchTable(string? format = null)
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static EarthlyBranch operator +(EarthlyBranch left, int right)
         {
-            for (int i = 1; i <= 12; i++)
-            {
-                var branch = new EarthlyBranch(i);
-                yield return (branch.ToString(format), branch);
-            }
+            return left.Next(right);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static EarthlyBranch operator -(EarthlyBranch left, int right)
+        {
+            right = right % 12;
+            return left.Next(-right);
+        }
+
+        #region converting
         /// <summary>
         /// 
         /// </summary>
@@ -156,6 +161,136 @@ namespace YiJingFramework.StemsAndBranches
         }
 
         /// <summary>
+        /// 从字符串转换。
+        /// Convert from a string.
+        /// </summary>
+        /// <param name="s">
+        /// 字符串。
+        /// The string.
+        /// </param>
+        /// <returns>
+        /// 结果。
+        /// The result.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="s"/> 是 <c>null</c> 。
+        /// <paramref name="s"/> is <c>null</c>.
+        /// </exception>
+        /// <exception cref="FormatException">
+        /// 传入字符串的格式不受支持。
+        /// The input string was not in the supported format.
+        /// </exception>
+        public static EarthlyBranch Parse(string s)
+        {
+            ArgumentNullException.ThrowIfNull(s);
+
+            if (TryParse(s, out var result))
+                return result;
+            throw new FormatException($"Cannot parse \"{s}\" as {nameof(EarthlyBranch)}.");
+        }
+
+        /// <summary>
+        /// 从字符串转换。
+        /// Convert from a string.
+        /// </summary>
+        /// <param name="s">
+        /// 字符串。
+        /// The string.
+        /// </param>
+        /// <param name="result">
+        /// 结果。
+        /// The result.
+        /// </param>
+        /// <returns>
+        /// 一个指示转换成功与否的值。
+        /// A value indicates whether it has been successfully converted or not.
+        /// </returns>
+        public static bool TryParse(
+            [NotNullWhen(true)] string? s,
+            [MaybeNullWhen(false)] out EarthlyBranch result)
+        {
+            switch (s?.Trim()?.ToLowerInvariant())
+            {
+                case "zi":
+                case "子":
+                case "1":
+                    result = new EarthlyBranch(1);
+                    return true;
+                case "chou":
+                case "丑":
+                case "2":
+                    result = new EarthlyBranch(2);
+                    return true;
+                case "yin":
+                case "寅":
+                case "3":
+                    result = new EarthlyBranch(3);
+                    return true;
+                case "mao":
+                case "卯":
+                case "4":
+                    result = new EarthlyBranch(4);
+                    return true;
+                case "chen":
+                case "辰":
+                case "5":
+                    result = new EarthlyBranch(5);
+                    return true;
+                case "si":
+                case "巳":
+                case "6":
+                    result = new EarthlyBranch(6);
+                    return true;
+                case "wu":
+                case "午":
+                case "7":
+                    result = new EarthlyBranch(7);
+                    return true;
+                case "wei":
+                case "未":
+                case "8":
+                    result = new EarthlyBranch(8);
+                    return true;
+                case "shen":
+                case "申":
+                case "9":
+                    result = new EarthlyBranch(9);
+                    return true;
+                case "you":
+                case "酉":
+                case "10":
+                    result = new EarthlyBranch(10);
+                    return true;
+                case "xu":
+                case "戌":
+                case "11":
+                    result = new EarthlyBranch(11);
+                    return true;
+                case "hai":
+                case "亥":
+                case "12":
+                    result = new EarthlyBranch(12);
+                    return true;
+                default:
+                    result = default;
+                    return false;
+            }
+        }
+
+        static EarthlyBranch IParsable<EarthlyBranch>.Parse(string s, IFormatProvider? provider)
+        {
+            return Parse(s);
+        }
+
+        static bool IParsable<EarthlyBranch>.TryParse(
+            [NotNullWhen(true)] string? s,
+            IFormatProvider? provider,
+            [MaybeNullWhen(false)] out EarthlyBranch result)
+        {
+            return TryParse(s, out result);
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="earthlyBranch"></param>
@@ -226,6 +361,81 @@ namespace YiJingFramework.StemsAndBranches
         /// <returns></returns>
         public static bool operator !=(EarthlyBranch left, EarthlyBranch right)
             => left.Index != right.Index;
+        #endregion
+
+        #region serializing
+        static bool IStringConvertibleForJson<EarthlyBranch>.FromStringForJson(string s, out EarthlyBranch result)
+        {
+            return TryParse(s, out result);
+        }
+
+        string IStringConvertibleForJson<EarthlyBranch>.ToStringForJson()
+        {
+            return this.ToString();
+        }
+        #endregion
+
+        #region values
+        /// <summary>
+        /// 子。
+        /// Zi.
+        /// </summary>
+        public static EarthlyBranch Zi => new EarthlyBranch(1);
+        /// <summary>
+        /// 丑。
+        /// Chou.
+        /// </summary>
+        public static EarthlyBranch Chou => new EarthlyBranch(2);
+        /// <summary>
+        /// 寅。
+        /// Yin.
+        /// </summary>
+        public static EarthlyBranch Yin => new EarthlyBranch(3);
+        /// <summary>
+        /// 卯。
+        /// Mao.
+        /// </summary>
+        public static EarthlyBranch Mao => new EarthlyBranch(4);
+        /// <summary>
+        /// 辰。
+        /// Chen.
+        /// </summary>
+        public static EarthlyBranch Chen => new EarthlyBranch(5);
+        /// <summary>
+        /// 巳。
+        /// Si.
+        /// </summary>
+        public static EarthlyBranch Si => new EarthlyBranch(6);
+        /// <summary>
+        /// 午。
+        /// Wu.
+        /// </summary>
+        public static EarthlyBranch Wu => new EarthlyBranch(7);
+        /// <summary>
+        /// 未。
+        /// Wei.
+        /// </summary>
+        public static EarthlyBranch Wei => new EarthlyBranch(8);
+        /// <summary>
+        /// 申。
+        /// Shen.
+        /// </summary>
+        public static EarthlyBranch Shen => new EarthlyBranch(9);
+        /// <summary>
+        /// 酉。
+        /// You.
+        /// </summary>
+        public static EarthlyBranch You => new EarthlyBranch(10);
+        /// <summary>
+        /// 戌。
+        /// Xu.
+        /// </summary>
+        public static EarthlyBranch Xu => new EarthlyBranch(11);
+        /// <summary>
+        /// 亥。
+        /// Hai.
+        /// </summary>
+        public static EarthlyBranch Hai => new EarthlyBranch(12);
         #endregion
     }
 }

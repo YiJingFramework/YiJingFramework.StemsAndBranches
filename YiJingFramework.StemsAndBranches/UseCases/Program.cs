@@ -10,8 +10,11 @@ namespace UseCases
         {
             #region to get or convert stems and branches
             HeavenlyStem jia = new HeavenlyStem(1);
-            HeavenlyStem yi = jia.Next(); // the first stem in front of Jia
+            _ = HeavenlyStem.Jia;
+            _ = HeavenlyStem.Parse(" jIA");
+            // case-insensitive and allows white spaces preceding and trailing.
 
+            HeavenlyStem yi = jia.Next(); // the first stem in front of Jia
             EarthlyBranch you = (EarthlyBranch)(-2);
             EarthlyBranch shen = you.Next(-25); // the 25th branch behind You
             // It will be the same if you use '-1' or '11',
@@ -124,24 +127,6 @@ namespace UseCases
             // 58: 辛酉 (Xin You)
             // 59: 壬戌 (Ren Xu)
             // 60: 癸亥 (Gui Hai)
-            #endregion
-
-            #region to convert from string to stems or branches
-            var stemTableInChinese = HeavenlyStem.BuildStringStemTable("C");
-            var dictionary = stemTableInChinese.ToDictionary(
-                item => item.s, item => item.stem);
-
-            var stemTableInPhoneticAlphabets = HeavenlyStem.BuildStringStemTable("G");
-            foreach (var (s, stem) in stemTableInPhoneticAlphabets)
-                dictionary.Add(s, stem);
-
-            string stringToSearch = "甲";
-            Console.WriteLine($"This is {dictionary[stringToSearch]}!");
-            string stringToSearch2 = "Yi";
-            Console.WriteLine($"这是{dictionary[stringToSearch2]:C}！");
-            Console.WriteLine();
-            // Outputs: This is Jia!
-            // 这是乙！
             #endregion
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
+using System.Text.Json;
 
 namespace YiJingFramework.StemsAndBranches.Tests
 {
@@ -16,7 +17,7 @@ namespace YiJingFramework.StemsAndBranches.Tests
 
             Assert.AreEqual("Yin", new EarthlyBranch(3).ToString());
             Assert.AreEqual("未", new EarthlyBranch(8).ToString("C"));
-            Assert.AreEqual("8", new EarthlyBranch(8).ToString("N"));
+            Assert.AreEqual("8", EarthlyBranch.Wei.ToString("N"));
 
             Assert.AreEqual("Hai", new EarthlyBranch(0).ToString());
             Assert.AreEqual("You", new EarthlyBranch(-2).ToString());
@@ -29,27 +30,26 @@ namespace YiJingFramework.StemsAndBranches.Tests
                     j = 1;
             }
 
-            var dic = EarthlyBranch.BuildStringBranchTable().ToDictionary(
-                (item) => item.s, (item) => item.branch);
-            var dicG = EarthlyBranch.BuildStringBranchTable("G").ToDictionary(
-                (item) => item.s, (item) => item.branch);
-            var dicC = EarthlyBranch.BuildStringBranchTable("C").ToDictionary(
-                (item) => item.s, (item) => item.branch);
-            var dicN = EarthlyBranch.BuildStringBranchTable("N").ToDictionary(
-                (item) => item.s, (item) => item.branch);
-            for (int i = -1007, j = 1; i < 1000; i++)
+            T Parse<T>(string s) where T : IParsable<T>
             {
-                Assert.AreEqual(dic[new EarthlyBranch(j).ToString()], (EarthlyBranch)i);
-                Assert.AreEqual(dicG[new EarthlyBranch(j).ToString("G")], (EarthlyBranch)i);
-                Assert.AreEqual(dicC[new EarthlyBranch(j).ToString("C")], (EarthlyBranch)i);
-                Assert.AreEqual(dicN[new EarthlyBranch(j).ToString("N")], (EarthlyBranch)i);
-                j++;
-                if (j == 13)
-                    j = 1;
+                return T.Parse(s, null);
             }
 
-            Assert.AreEqual(new EarthlyBranch(1).Next(12 + 11), new EarthlyBranch(12));
-            Assert.AreEqual(new EarthlyBranch(1).Next(-2), new EarthlyBranch(11));
+            bool TryParse<T>(string s, out T result) where T : IParsable<T>
+            {
+                return T.TryParse(s, null, out result);
+            }
+
+            Assert.AreEqual(EarthlyBranch.Zi, EarthlyBranch.Parse("zI"));
+            Assert.AreEqual(EarthlyBranch.Yin, Parse<EarthlyBranch>("寅"));
+            _ = TryParse<EarthlyBranch>("8", out var p);
+            Assert.AreEqual(EarthlyBranch.Wei, p);
+
+            Assert.AreEqual(EarthlyBranch.Hai, EarthlyBranch.Zi.Next(12 + 11));
+            Assert.AreEqual(new EarthlyBranch(11), EarthlyBranch.Zi.Next(-2));
+
+            Assert.AreEqual(new EarthlyBranch(1) + 15, new EarthlyBranch(4));
+            Assert.AreEqual(new EarthlyBranch(1) - 15, new EarthlyBranch(10));
         }
 
         [TestMethod()]
@@ -108,6 +108,18 @@ namespace YiJingFramework.StemsAndBranches.Tests
                 }
                 Assert.AreEqual(false, firF.Equals(null));
                 Assert.AreEqual(false, secF.Equals(new object()));
+            }
+        }
+
+        [TestMethod()]
+        public void SerializationTest()
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                var element = (EarthlyBranch)i;
+                var s = JsonSerializer.Serialize(element);
+                var d = JsonSerializer.Deserialize<EarthlyBranch>(s);
+                Assert.AreEqual(element, d);
             }
         }
     }

@@ -1,5 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.Metrics;
+using System.IO;
+using System.Numerics;
+using System.Text.Json.Serialization;
+using YiJingFramework.Serialization;
 // using YiJingFramework.Core;
 // using YiJingFramework.FiveElements;
 
@@ -9,7 +15,13 @@ namespace YiJingFramework.StemsAndBranches
     /// 天干。
     /// A heavenly stem.
     /// </summary>
-    public struct HeavenlyStem : IComparable<HeavenlyStem>, IEquatable<HeavenlyStem>, IFormattable
+    [JsonConverter(typeof(JsonConverterOfStringConvertibleForJson<HeavenlyStem>))]
+    public readonly struct HeavenlyStem :
+        IComparable<HeavenlyStem>, IEquatable<HeavenlyStem>, IFormattable,
+        IParsable<HeavenlyStem>, IEqualityOperators<HeavenlyStem, HeavenlyStem, bool>,
+        IStringConvertibleForJson<HeavenlyStem>,
+        IAdditionOperators<HeavenlyStem, int, HeavenlyStem>,
+        ISubtractionOperators<HeavenlyStem, int, HeavenlyStem>
     {
         /// <summary>
         /// 天干的序数。
@@ -55,35 +67,30 @@ namespace YiJingFramework.StemsAndBranches
             return new HeavenlyStem(this.Index + n);
         }
 
-        #region converting
-        /// <summary>        
-        /// 按照指定格式构建字符串-天干表。
-        /// Build a string-stem table with the given format.
+        /// <summary>
+        /// 
         /// </summary>
-        /// <param name="format">
-        /// 要使用的格式。
-        /// The format to be used.
-        /// 参见 <seealso cref="ToString(string?, IFormatProvider?)"/> 。
-        /// See <seealso cref="ToString(string?, IFormatProvider?)"/>.
-        /// </param>
-        /// <returns>
-        /// 结果。
-        /// The result.
-        /// </returns>
-        /// <exception cref="FormatException">
-        /// 给出的格式化字符串不受支持。
-        /// The given format is not supported.
-        /// </exception>
-        public static IEnumerable<(string s, HeavenlyStem stem)>
-            BuildStringStemTable(string? format = null)
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static HeavenlyStem operator +(HeavenlyStem left, int right)
         {
-            for (int i = 1; i <= 10; i++)
-            {
-                var stem = new HeavenlyStem(i);
-                yield return (stem.ToString(format), stem);
-            }
+            return left.Next(right);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="left"></param>
+        /// <param name="right"></param>
+        /// <returns></returns>
+        public static HeavenlyStem operator -(HeavenlyStem left, int right)
+        {
+            right = right % 10;
+            return left.Next(-right);
+        }
+
+        #region converting
         /// <summary>
         /// 
         /// </summary>
@@ -154,6 +161,126 @@ namespace YiJingFramework.StemsAndBranches
         }
 
         /// <summary>
+        /// 从字符串转换。
+        /// Convert from a string.
+        /// </summary>
+        /// <param name="s">
+        /// 字符串。
+        /// The string.
+        /// </param>
+        /// <returns>
+        /// 结果。
+        /// The result.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="s"/> 是 <c>null</c> 。
+        /// <paramref name="s"/> is <c>null</c>.
+        /// </exception>
+        /// <exception cref="FormatException">
+        /// 传入字符串的格式不受支持。
+        /// The input string was not in the supported format.
+        /// </exception>
+        public static HeavenlyStem Parse(string s)
+        {
+            ArgumentNullException.ThrowIfNull(s);
+
+            if (TryParse(s, out var result))
+                return result;
+            throw new FormatException($"Cannot parse \"{s}\" as {nameof(HeavenlyStem)}.");
+        }
+
+        /// <summary>
+        /// 从字符串转换。
+        /// Convert from a string.
+        /// </summary>
+        /// <param name="s">
+        /// 字符串。
+        /// The string.
+        /// </param>
+        /// <param name="result">
+        /// 结果。
+        /// The result.
+        /// </param>
+        /// <returns>
+        /// 一个指示转换成功与否的值。
+        /// A value indicates whether it has been successfully converted or not.
+        /// </returns>
+        public static bool TryParse(
+            [NotNullWhen(true)] string? s,
+            [MaybeNullWhen(false)] out HeavenlyStem result)
+        {
+            switch (s?.Trim()?.ToLowerInvariant())
+            {
+                case "jia":
+                case "甲":
+                case "1":
+                    result = new HeavenlyStem(1);
+                    return true;
+                case "yi":
+                case "乙":
+                case "2":
+                    result = new HeavenlyStem(2);
+                    return true;
+                case "bing":
+                case "丙":
+                case "3":
+                    result = new HeavenlyStem(3);
+                    return true;
+                case "ding":
+                case "丁":
+                case "4":
+                    result = new HeavenlyStem(4);
+                    return true;
+                case "wu":
+                case "戊":
+                case "5":
+                    result = new HeavenlyStem(5);
+                    return true;
+                case "ji":
+                case "己":
+                case "6":
+                    result = new HeavenlyStem(6);
+                    return true;
+                case "geng":
+                case "庚":
+                case "7":
+                    result = new HeavenlyStem(7);
+                    return true;
+                case "xin":
+                case "辛":
+                case "8":
+                    result = new HeavenlyStem(8);
+                    return true;
+                case "ren":
+                case "壬":
+                case "9":
+                    result = new HeavenlyStem(9);
+                    return true;
+                case "gui":
+                case "癸":
+                case "10":
+                    result = new HeavenlyStem(10);
+                    return true;
+                default:
+                    result = default;
+                    return false;
+            }
+        }
+
+        static HeavenlyStem IParsable<HeavenlyStem>.Parse(string s, IFormatProvider? provider)
+        {
+            return Parse(s);
+        }
+
+        static bool IParsable<HeavenlyStem>.TryParse(
+            [NotNullWhen(true)] string? s,
+            IFormatProvider? provider,
+            [MaybeNullWhen(false)] out HeavenlyStem result)
+        {
+            return TryParse(s, out result);
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="heavenlyStem"></param>
@@ -167,18 +294,6 @@ namespace YiJingFramework.StemsAndBranches
         public static explicit operator HeavenlyStem(int value)
             => new HeavenlyStem(value);
         #endregion
-
-        /*
-        public (FiveElement, YinYang) Attributes
-        {
-            get
-            {
-                YinYang yinYang = (YinYang)(this.Index % 2);
-                FiveElement element = (FiveElement)((this.Index - 1) / 2);
-                return (element, yinYang);
-            }
-        }
-        */
 
         #region comparing
         /// <summary>
@@ -236,6 +351,71 @@ namespace YiJingFramework.StemsAndBranches
         /// <returns></returns>
         public static bool operator !=(HeavenlyStem left, HeavenlyStem right)
             => left.Index != right.Index;
+        #endregion
+
+        #region serializing
+        static bool IStringConvertibleForJson<HeavenlyStem>.FromStringForJson(string s, out HeavenlyStem result)
+        {
+            return TryParse(s, out result);
+        }
+
+        string IStringConvertibleForJson<HeavenlyStem>.ToStringForJson()
+        {
+            return this.ToString();
+        }
+        #endregion
+
+        #region values
+        /// <summary>
+        /// 甲。
+        /// Jia.
+        /// </summary>
+        public static HeavenlyStem Jia => new HeavenlyStem(1);
+        /// <summary>
+        /// 乙。
+        /// Yi.
+        /// </summary>
+        public static HeavenlyStem Yi => new HeavenlyStem(2);
+        /// <summary>
+        /// 丙。
+        /// Bing.
+        /// </summary>
+        public static HeavenlyStem Bing => new HeavenlyStem(3);
+        /// <summary>
+        /// 丁。
+        /// Ding.
+        /// </summary>
+        public static HeavenlyStem Ding => new HeavenlyStem(4);
+        /// <summary>
+        /// 戊。
+        /// Wu.
+        /// </summary>
+        public static HeavenlyStem Wu => new HeavenlyStem(5);
+        /// <summary>
+        /// 己。
+        /// Ji.
+        /// </summary>
+        public static HeavenlyStem Ji => new HeavenlyStem(6);
+        /// <summary>
+        /// 庚。
+        /// Geng.
+        /// </summary>
+        public static HeavenlyStem Geng => new HeavenlyStem(7);
+        /// <summary>
+        /// 辛。
+        /// Xin.
+        /// </summary>
+        public static HeavenlyStem Xin => new HeavenlyStem(8);
+        /// <summary>
+        /// 壬。
+        /// Ren.
+        /// </summary>
+        public static HeavenlyStem Ren => new HeavenlyStem(9);
+        /// <summary>
+        /// 癸。
+        /// Gui.
+        /// </summary>
+        public static HeavenlyStem Gui => new HeavenlyStem(10);
         #endregion
     }
 }

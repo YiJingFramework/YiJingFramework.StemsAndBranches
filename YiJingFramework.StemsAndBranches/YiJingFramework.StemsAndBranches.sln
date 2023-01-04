@@ -9,9 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YiJingFramework.StemsAndBra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseCases", "UseCases\UseCases.csproj", "{5B5F7E2F-8B60-4D47-BCAC-B5ED95CD0D2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtensionsOfStemsAndBranches", "ExtensionsOfStemsAndBranches\ExtensionsOfStemsAndBranches.csproj", "{C0D925A8-1DD6-466B-8724-5DB50F09616B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtensionsOfStemsAndBranches", "ExtensionsOfStemsAndBranches\ExtensionsOfStemsAndBranches.csproj", "{C0D925A8-1DD6-466B-8724-5DB50F09616B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtensionsOfStemsAndBranchesTests", "ExtensionsOfStemsAndBranchesTests\ExtensionsOfStemsAndBranchesTests.csproj", "{7B8E4B4C-109D-424D-8897-9258DB494F6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtensionsOfStemsAndBranchesTests", "ExtensionsOfStemsAndBranchesTests\ExtensionsOfStemsAndBranchesTests.csproj", "{7B8E4B4C-109D-424D-8897-9258DB494F6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TryParseSwitchGenerator", "TryParseSwitchGenerator\TryParseSwitchGenerator.csproj", "{1719E428-5928-46A7-8F97-0E04DDC89FA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticValuesGenerator", "StaticValuesGenerator\StaticValuesGenerator.csproj", "{EF010D0B-B25E-4603-A620-33F261077A46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{7B8E4B4C-109D-424D-8897-9258DB494F6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B8E4B4C-109D-424D-8897-9258DB494F6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B8E4B4C-109D-424D-8897-9258DB494F6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1719E428-5928-46A7-8F97-0E04DDC89FA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1719E428-5928-46A7-8F97-0E04DDC89FA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1719E428-5928-46A7-8F97-0E04DDC89FA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1719E428-5928-46A7-8F97-0E04DDC89FA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF010D0B-B25E-4603-A620-33F261077A46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF010D0B-B25E-4603-A620-33F261077A46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF010D0B-B25E-4603-A620-33F261077A46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF010D0B-B25E-4603-A620-33F261077A46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

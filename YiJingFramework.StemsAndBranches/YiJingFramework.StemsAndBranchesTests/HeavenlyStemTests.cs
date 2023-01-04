@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
+using System.Text.Json;
 
 namespace YiJingFramework.StemsAndBranches.Tests
 {
@@ -29,45 +30,28 @@ namespace YiJingFramework.StemsAndBranches.Tests
                     j = 1;
             }
 
-            var dic = HeavenlyStem.BuildStringStemTable().ToDictionary(
-                (item) => item.s, (item) => item.stem);
-            var dicG = HeavenlyStem.BuildStringStemTable("G").ToDictionary(
-                (item) => item.s, (item) => item.stem);
-            var dicC = HeavenlyStem.BuildStringStemTable("C").ToDictionary(
-                (item) => item.s, (item) => item.stem);
-            var dicN = HeavenlyStem.BuildStringStemTable("N").ToDictionary(
-                (item) => item.s, (item) => item.stem);
-            for (int i = -999, j = 1; i < 1000; i++)
+            T Parse<T>(string s) where T : IParsable<T>
             {
-                Assert.AreEqual(dic[new HeavenlyStem(j).ToString()], (HeavenlyStem)i);
-                Assert.AreEqual(dicG[new HeavenlyStem(j).ToString("G")], (HeavenlyStem)i);
-                Assert.AreEqual(dicC[new HeavenlyStem(j).ToString("C")], (HeavenlyStem)i);
-                Assert.AreEqual(dicN[new HeavenlyStem(j).ToString("N")], (HeavenlyStem)i);
-                j++;
-                if (j == 11)
-                    j = 1;
+                return T.Parse(s, null);
             }
+
+            bool TryParse<T>(string s, out T result) where T : IParsable<T>
+            {
+                return T.TryParse(s, null, out result);
+            }
+
+            Assert.AreEqual(HeavenlyStem.Jia, HeavenlyStem.Parse("jIa"));
+            Assert.AreEqual(HeavenlyStem.Gui, Parse<HeavenlyStem>("癸"));
+            _ = TryParse<HeavenlyStem>("4", out var p);
+            Assert.AreEqual(HeavenlyStem.Ding, p);
+
 
             Assert.AreEqual(new HeavenlyStem(1).Next(10 + 3), new HeavenlyStem(4));
             Assert.AreEqual(new HeavenlyStem(1).Next(-2), new HeavenlyStem(9));
-        }
 
-        /*
-        [TestMethod()]
-        public void GetAttributesTest()
-        {
-            Assert.AreEqual((FiveElement.Wood, YinYang.Yang), new HeavenlyStem(1).Attributes);
-            Assert.AreEqual((FiveElement.Wood, YinYang.Yin), new HeavenlyStem(2).Attributes);
-            Assert.AreEqual((FiveElement.Fire, YinYang.Yang), new HeavenlyStem(3).Attributes);
-            Assert.AreEqual((FiveElement.Fire, YinYang.Yin), new HeavenlyStem(4).Attributes);
-            Assert.AreEqual((FiveElement.Earth, YinYang.Yang), new HeavenlyStem(5).Attributes);
-            Assert.AreEqual((FiveElement.Earth, YinYang.Yin), new HeavenlyStem(6).Attributes);
-            Assert.AreEqual((FiveElement.Metal, YinYang.Yang), new HeavenlyStem(7).Attributes);
-            Assert.AreEqual((FiveElement.Metal, YinYang.Yin), new HeavenlyStem(8).Attributes);
-            Assert.AreEqual((FiveElement.Water, YinYang.Yang), new HeavenlyStem(9).Attributes);
-            Assert.AreEqual((FiveElement.Water, YinYang.Yin), new HeavenlyStem(10).Attributes);
+            Assert.AreEqual(new HeavenlyStem(1) + 15, new HeavenlyStem(6));
+            Assert.AreEqual(new HeavenlyStem(1) - 15, new HeavenlyStem(6));
         }
-        */
 
         [TestMethod()]
         public void ComparingTest()
@@ -125,6 +109,17 @@ namespace YiJingFramework.StemsAndBranches.Tests
                 }
                 Assert.AreEqual(false, firF.Equals(null));
                 Assert.AreEqual(false, secF.Equals(new object()));
+            }
+        }
+        [TestMethod()]
+        public void SerializationTest()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                var element = (HeavenlyStem)i;
+                var s = JsonSerializer.Serialize(element);
+                var d = JsonSerializer.Deserialize<HeavenlyStem>(s);
+                Assert.AreEqual(element, d);
             }
         }
     }
