@@ -18,7 +18,7 @@
 		<RepositoryUrl>https://github.com/YiJingFramework/YiJingFramework.StemsAndBranches.git</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>zhouyi;i-ching;yijing;yijingframework</PackageTags>
-		<Version>4.0.0</Version>
+		<Version>4.1.0</Version>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
